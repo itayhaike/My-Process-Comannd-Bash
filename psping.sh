@@ -1,18 +1,22 @@
 #!/bin/bash
-#Psping
-#Itay Haike
+#Itay Haike PSPING Script
+
+
+timeout=1
 counter=0
 
 function check() {
 	if [ $# -eq 1 ]; then
 		while true; do
 			echo "$(pgrep -l $1): $(pgrep -c $1) instance(S)..."
+			sleep $timeout
 		done
 	else
+	
 		while getopts "c:l:t:u:" opt; do
 			case $opt in
 				c)  c_func  ${OPTARG}  ${@: -1} ;;
-				t) t_func ${OPTARG} ${@: -1} ;;
+				t)   t_func ${OPTARG}  ${@: -1} ;;
 				u) u_func ${OPTARG} ${@: -1};;
 				\?) help ; exit 1 ;;
 			esac
@@ -32,6 +36,7 @@ function c_func() {
     while [ $counter -lt $1 ]; do
     	echo "$(pgrep -l $2): $(pgrep -c $2) instance(S)..."
     	(( counter++ ))
+    	sleep $timeout
     	echo " RUN $counter Times.."
     done
 }
@@ -42,14 +47,16 @@ function t_func(){
     	(( counter++ ))
     	echo " RUN $counter Times.."
     	sleep $1
-    	break
     done
 }
 
 function u_func(){
+	while true; do
     echo "$(pgrep -lu $1 $2): $(pgrep -c $2) instance(S)..."
     (( counter++ ))
+    sleep $timeout
     echo " RUN $counter Times.."
+    done
 }
 
 check $@
