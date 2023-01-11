@@ -1,5 +1,5 @@
-# Psping---Bash
-Write a bash script called psping which checks periodically if a specific executable has a
+# ---Bash
+bash script called psping which checks periodically if a specific executable has a
 live process. Following is the exact synopsis:
 psping [-c ###] [-t ###] [-u user-name] exe-name
 Counts and echos number of live processes for a user, whose executable file is exe-name.
